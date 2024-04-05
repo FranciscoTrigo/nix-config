@@ -51,8 +51,21 @@
   services.xserver.enable = true;
 
   # Enable the XFCE Desktop Environment.
-  services.xserver.displayManager.lightdm.enable = true;
-  services.xserver.desktopManager.xfce.enable = true;
+#  services.xserver.displayManager.lightdm.enable = true;
+ # services.xserver.desktopManager.xfce.enable = true;
+
+
+  # enable awesomewm
+  services.xserver.displayManager.sddm.enable = true;
+  services.xserver.displayManager.defaultSession = "none+awesome";
+
+  services.xserver.windowManager.awesome = {
+    enable = true;
+    luaModules = with pkgs.luaPackages; [
+	luarocks
+	luadbi-mysql
+	];
+	};	
 
   # Configure keymap in X11
   services.xserver = {
@@ -102,11 +115,17 @@
   environment.systemPackages = with pkgs; [
    vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
    wget
+   neofetch
    tmux
    git
    zsh
    home-manager
   ];
+
+  fonts.packages = with pkgs; [
+   # iosevka,
+   (nerdfonts.override { fonts = [ "FiraCode" "DroidSansMono" "Iosevka" ]; })
+  ]
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.

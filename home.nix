@@ -33,6 +33,7 @@
     # pkgs.hello
     cowsay
     htop
+    rofi
     fortune
     kitty
     bash
@@ -65,7 +66,10 @@
     #   org.gradle.console=verbose
     #   org.gradle.daemon.idletimeout=3600000
     # '';
-
+    ".config/awesome" = {
+	source = ./programs/awesome;
+	recursive = true;
+	};
     ".config/kitty" = {
 	source = ./programs/kitty;
 	recursive = true;

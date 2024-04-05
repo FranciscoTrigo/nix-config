@@ -1,4 +1,7 @@
------- If LuaRocks is installed, make sure that packages installed through it are
+-- My config to AwesomeWM
+-- At the moment its mostly based off the default config with some edits
+-- and stuff that I took from around the internet
+-- If LuaRocks is installed, make sure that packages installed through it are
 -- found (e.g. lgi). If LuaRocks is not installed, do nothing.
 pcall(require, "luarocks.loader")
 
@@ -17,6 +20,19 @@ local hotkeys_popup = require("awful.hotkeys_popup")
 -- Enable hotkeys help widget for VIM and other apps
 -- when client with a matching name is opened:
 require("awful.hotkeys_popup.keys")
+
+-- define default apps for stuff
+apps = {
+  network_manager = "nm-connection-editor",
+  power_manager = "xfce4-power-manager",
+  terminal = "kitty",
+  lock = "i3lock",
+  filebrowser = "",
+  logseq = "logseq"
+}
+
+-- theme folder setup
+local theme_path = gears.filesystem.get_configuration_dir() .. "themes/"
 
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
@@ -43,14 +59,22 @@ do
 end
 -- }}}
 
+-- awful.spawn.with_shell("~/scripts/byeCapsLock.sh")
+
 -- {{{ Variable definitions
 -- Themes define colours, icons, font and wallpapers.
-beautiful.init(gears.filesystem.get_themes_dir() .. "default/theme.lua")
+--beautiful.init(gears.filesystem.get_themes_dir() .. "default/theme.lua")
+-- Set up my own theme, gruvbox for now
+beautiful.init(theme_path .. "srcery/theme.lua")
+beautiful.font = "Iosevka 15"
 
 -- This is used later as the default terminal and editor to run.
 terminal = "kitty"
 editor = os.getenv("EDITOR") or "vim"
 editor_cmd = terminal .. " -e " .. editor
+beautiful.useless_gap = 3
+
+
 
 -- Default modkey.
 -- Usually, Mod4 is the key with a logo between Control and Alt.
@@ -58,9 +82,6 @@ editor_cmd = terminal .. " -e " .. editor
 -- I suggest you to remap Mod4 to another key using xmodmap or other tools.
 -- However, you can use another modifier like Mod1, but it may interact with others.
 modkey = "Mod4"
-
--- add cute gaps
-beautiful.useless_gap = 3
 
 -- Table of layouts to cover with awful.layout.inc, order matters.
 awful.layout.layouts = {
@@ -73,10 +94,10 @@ awful.layout.layouts = {
     awful.layout.suit.spiral,
     awful.layout.suit.spiral.dwindle,
     awful.layout.suit.max,
+    awful.layout.suit.floating,
     awful.layout.suit.max.fullscreen,
     awful.layout.suit.magnifier,
     awful.layout.suit.corner.nw,
-    awful.layout.suit.floating,
     -- awful.layout.suit.corner.ne,
     -- awful.layout.suit.corner.sw,
     -- awful.layout.suit.corner.se,
@@ -110,7 +131,7 @@ mykeyboardlayout = awful.widget.keyboardlayout()
 
 -- {{{ Wibar
 -- Create a textclock widget
-mytextclock = wibox.widget.textclock(' [%a %Y-%m%d %R] ')
+mytextclock = wibox.widget.textclock(' [%a %Y-%m-%d %R] ')
 
 -- Create a wibox for each screen and add it
 local taglist_buttons = gears.table.join(
@@ -162,6 +183,8 @@ local function set_wallpaper(s)
         end
         gears.wallpaper.maximized(wallpaper, s, true)
     end
+    -- set my own cool wallpaer that is a gengar
+    gears.wallpaper.tiled("/home/yamifrankc/Downloads/gengar.jpg")
 end
 
 -- Re-set wallpaper when a screen's geometry changes (e.g. different resolution)
@@ -199,7 +222,7 @@ awful.screen.connect_for_each_screen(function(s)
     }
 
     -- Create the wibox
-    s.mywibox = awful.wibar({ position = "top", screen = s })
+    s.mywibox = awful.wibar({ position = "top", screen = s, height = 35})
 
     -- Add widgets to the wibox
     s.mywibox:setup {
@@ -210,13 +233,30 @@ awful.screen.connect_for_each_screen(function(s)
             s.mytaglist,
             s.mypromptbox,
         },
-        s.mytasklist, -- Middle widget
+         s.mytasklist, -- Middle widget
         { -- Right widgets
             layout = wibox.layout.fixed.horizontal,
-            mykeyboardlayout,
-            wibox.widget.systray(),
-            mytextclock,
-            s.mylayoutbox,
+            -- mykeyboardlayout,
+         --   brightness_widget({
+           --          program = 'brightnessctl',
+             --        step = 5,
+               --      type = 'arc',
+                     --base = 1212,
+                 --    tooltip = 'true',
+            --    }),
+          --  battery_widget({
+            --           show_current_level = true,
+            --           arc_thickness = 1,
+          -- }),
+          --  volume_widget({
+            --    widget_type = 'horizontal_bar',
+              --  device = 'default',
+          -- }),
+	  -- temperature_widget,
+          --  wibox.widget.systray(),
+          --  mytextclock,
+          --  logout_menu(),
+          --  s.mylayoutbox,
         },
     }
 end)
@@ -233,16 +273,25 @@ root.buttons(gears.table.join(
 -- {{{ Key bindings
 globalkeys = gears.table.join(
 
-   -- custom keys
-   -- Rofi for custom launcher
-   awful.key({ modkey }, "d",
-     function()
-	   awful.spawn.with_shell("rofi -matching fuzzy -show combi")
-     end,
-       {description = "Rofi launcher", group = "launcher"}),
+    -- CUSTOM KEYS
+    -- ROfi for a launcher
+    awful.key({ modkey }, "d",
+      function()
+          awful.spawn.with_shell("rofi -matching fuzzy -show combi")
+       end,
+        {description = "rofi launcher", group = "launcher"}),
+    -- volume keys, are tied to the volume_widget
+    awful.key({},"XF86AudioMute", function() awful.spawn("amixer sset Master toggle") end, {description = "Toggle volume", group = "Media"}),
+    awful.key({},"XF86AudioLowerVolume", function() volume_widget:inc(5) end, {description = "More volume", group = "Media"}),
+    awful.key({},"XF86AudioRaiseVolume", function() volume_widget:inc(5) end, {description = "More volume", group = "Media"}),
+    awful.key({ modkey }, "]", function() volume_widget:inc(5) end, {description = "More volume", group = "Media"}),
+    awful.key({ modkey }, "[", function() volume_widget:dec(5) end, {description = "Less volume", group = "Media"}),
+    awful.key( {modkey }, "\\", function() volume_widget:toggle() end),
+    -- brightness keys, tied to birghtes widget
+    awful.key( {}, "XF86MonBrightnessUp", function () brightness_widget:inc() end, {description = "increase brightness", group = "custom"}),
+    awful.key( {}, "XF86MonBrightnessDown", function () brightness_widget:dec() end, {description = "decrease brillo", group = "custom"}),
 
 
-   -- custom end
     awful.key({ modkey,           }, "s",      hotkeys_popup.show_help,
               {description="show help", group="awesome"}),
     awful.key({ modkey,           }, "Left",   awful.tag.viewprev,
@@ -292,8 +341,8 @@ globalkeys = gears.table.join(
               {description = "open a terminal", group = "launcher"}),
     awful.key({ modkey, "Control" }, "r", awesome.restart,
               {description = "reload awesome", group = "awesome"}),
-    awful.key({ modkey, "Shift"   }, "q", awesome.quit,
-              {description = "quit awesome", group = "awesome"}),
+    --awful.key({ modkey, "Shift"   }, "q", awesome.quit,
+      --        {description = "quit awesome", group = "awesome"}),
 
     awful.key({ modkey,           }, "l",     function () awful.tag.incmwfact( 0.05)          end,
               {description = "increase master width factor", group = "layout"}),
@@ -350,7 +399,7 @@ clientkeys = gears.table.join(
             c:raise()
         end,
         {description = "toggle fullscreen", group = "client"}),
-    awful.key({ modkey, "Shift"   }, "c",      function (c) c:kill()                         end,
+    awful.key({ modkey, "Shift"   }, "q",      function (c) c:kill()                         end,
               {description = "close", group = "client"}),
     awful.key({ modkey, "Control" }, "space",  awful.client.floating.toggle                     ,
               {description = "toggle floating", group = "client"}),
@@ -502,22 +551,33 @@ awful.rules.rules = {
         }
       }, properties = { floating = true }},
 
-    -- NO titlebars to normal clients
-    { rule_any = {type = { "normal" }
+    -- No titlebars to normal clients
+    { rule_any = {type = { "normal"}
       }, properties = { titlebars_enabled = false }
     },
-    -- yes titlebars for dialogs
+    -- Yes titlebars for dialogs
     { rule_any = {type = "dialog"}
       }, properties = { titlebars_enabled = true},
 
-    -- firefox and apps to tags
-    { rule = { class = "firefox" },
-    properties = { tag = "2" } },
+          -- Set Firefox to always map on the tag named "2" on screen 1.
+     { rule = { class = "firefox" },
+     properties = { tag = "2" } },
 
-    { rule = { class = "Logseq" },
-    properties = { tag = "4" } },
+     { rule = { class = "Logseq" },
+     properties = { tag = "4"} },
 
-}
+    }, -- END OF RULES
+
+
+    -- Set Firefox to always map on the tag named "2" on screen 1.
+     { rule = { class = "firefox" },
+       properties = { titlebars_enabled = true, tag = "2" } },
+
+     { rule = { class = "Logseq" },
+       properties = { tag = "4"} 
+    },
+
+
 -- }}}
 
 -- {{{ Signals
@@ -525,7 +585,7 @@ awful.rules.rules = {
 client.connect_signal("manage", function (c)
     -- Set the windows at the slave,
     -- i.e. put it at the end of others instead of setting it master.
-    -- if not awesome.startup then awful.client.setslave(c) end
+     if not awesome.startup then awful.client.setslave(c) end
 
     if awesome.startup
       and not c.size_hints.user_position
@@ -583,3 +643,5 @@ end)
 client.connect_signal("focus", function(c) c.border_color = beautiful.border_focus end)
 client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
 -- }}}
+--
+

@@ -37,6 +37,7 @@
     fortune
     kitty
     bash
+    tree
     starship
 
     # # It is sometimes useful to fine-tune packages, for example, by applying

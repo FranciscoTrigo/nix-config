@@ -1,4 +1,4 @@
------- If LuaRocks is installed, make sure that packages installed through it are
+-- If LuaRocks is installed, make sure that packages installed through it are
 -- found (e.g. lgi). If LuaRocks is not installed, do nothing.
 pcall(require, "luarocks.loader")
 
@@ -46,7 +46,8 @@ end
 -- {{{ Variable definitions
 -- Themes define colours, icons, font and wallpapers.
 beautiful.init(gears.filesystem.get_themes_dir() .. "default/theme.lua")
-
+--beautiful.init(gears.filesystem.get_themes_dir() .. "themes/srcery_theme.lua")
+beautiful.font = "Iosevka 15"
 -- This is used later as the default terminal and editor to run.
 terminal = "kitty"
 editor = os.getenv("EDITOR") or "vim"
@@ -59,11 +60,9 @@ editor_cmd = terminal .. " -e " .. editor
 -- However, you can use another modifier like Mod1, but it may interact with others.
 modkey = "Mod4"
 
--- add cute gaps
-beautiful.useless_gap = 3
-
 -- Table of layouts to cover with awful.layout.inc, order matters.
 awful.layout.layouts = {
+    awful.layout.suit.floating,
     awful.layout.suit.tile,
     awful.layout.suit.tile.left,
     awful.layout.suit.tile.bottom,
@@ -76,7 +75,6 @@ awful.layout.layouts = {
     awful.layout.suit.max.fullscreen,
     awful.layout.suit.magnifier,
     awful.layout.suit.corner.nw,
-    awful.layout.suit.floating,
     -- awful.layout.suit.corner.ne,
     -- awful.layout.suit.corner.sw,
     -- awful.layout.suit.corner.se,
@@ -110,7 +108,7 @@ mykeyboardlayout = awful.widget.keyboardlayout()
 
 -- {{{ Wibar
 -- Create a textclock widget
-mytextclock = wibox.widget.textclock(' [%a %Y-%m%d %R] ')
+mytextclock = wibox.widget.textclock(' [%a %Y-%m-%d %R] ')
 
 -- Create a wibox for each screen and add it
 local taglist_buttons = gears.table.join(
@@ -232,17 +230,6 @@ root.buttons(gears.table.join(
 
 -- {{{ Key bindings
 globalkeys = gears.table.join(
-
-   -- custom keys
-   -- Rofi for custom launcher
-   awful.key({ modkey }, "d",
-     function()
-	   awful.spawn.with_shell("rofi -matching fuzzy -show combi")
-     end,
-       {description = "Rofi launcher", group = "launcher"}),
-
-
-   -- custom end
     awful.key({ modkey,           }, "s",      hotkeys_popup.show_help,
               {description="show help", group="awesome"}),
     awful.key({ modkey,           }, "Left",   awful.tag.viewprev,
@@ -502,21 +489,14 @@ awful.rules.rules = {
         }
       }, properties = { floating = true }},
 
-    -- NO titlebars to normal clients
-    { rule_any = {type = { "normal" }
-      }, properties = { titlebars_enabled = false }
+    -- Add titlebars to normal clients and dialogs
+    { rule_any = {type = { "normal", "dialog" }
+      }, properties = { titlebars_enabled = true }
     },
-    -- yes titlebars for dialogs
-    { rule_any = {type = "dialog"}
-      }, properties = { titlebars_enabled = true},
 
-    -- firefox and apps to tags
-    { rule = { class = "firefox" },
-    properties = { tag = "2" } },
-
-    { rule = { class = "Logseq" },
-    properties = { tag = "4" } },
-
+    -- Set Firefox to always map on the tag named "2" on screen 1.
+    -- { rule = { class = "Firefox" },
+    --   properties = { screen = 1, tag = "2" } },
 }
 -- }}}
 

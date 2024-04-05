@@ -35,6 +35,7 @@
     htop
     fortune
     kitty
+    bash
     starship
 
     # # It is sometimes useful to fine-tune packages, for example, by applying
@@ -72,6 +73,11 @@
     ".config/starship.toml".source = ./programs/starship/starship.toml;
     ".vimrc".source = ./programs/vim/vimrc;
     ".zshrc".source = ./programs/zsh/zshrc;
+    ".tmux.conf".source = ./programs/tmux/tmux.conf;
+    ".tmux" = {
+	source = ./programs/tmux/tmux;
+	recursive = true;
+	};
   };
 
   # Home Manager can also manage your environment variables through

@@ -1,0 +1,4 @@
+Main:
+act(z,Obsidian,obsidian)
+act(f,Firefox,firefox)
+act(d,File Manager,dolphin)

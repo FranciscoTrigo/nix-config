@@ -71,6 +71,7 @@
 	};
     ".config/starship.toml".source = ./programs/starship/starship.toml;
     ".vimrc".source = ./programs/vim/vimrc;
+    ".zshrc".source = ./programs/zsh/zshrc;
   };
 
   # Home Manager can also manage your environment variables through

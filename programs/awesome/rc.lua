@@ -45,8 +45,13 @@ end
 
 -- {{{ Variable definitions
 -- Themes define colours, icons, font and wallpapers.
-beautiful.init(gears.filesystem.get_themes_dir() .. "default/theme.lua")
---beautiful.init(gears.filesystem.get_themes_dir() .. "themes/srcery_theme.lua")
+-- beautiful.init(gears.filesystem.get_themes_dir() .. "default/theme.lua")
+-- beautiful.init(gears.filesystem.get_themes_dir() .. "gruvbox/theme.lua")
+local chosen_theme = "srcery"
+local theme_path = string.format("%s/.config/awesome/themes/%s/theme.lua", os.getenv("HOME"), chosen_theme)
+beautiful.init(theme_path)
+
+
 beautiful.font = "Iosevka 15"
 -- This is used later as the default terminal and editor to run.
 terminal = "kitty"
@@ -279,8 +284,6 @@ globalkeys = gears.table.join(
               {description = "open a terminal", group = "launcher"}),
     awful.key({ modkey, "Control" }, "r", awesome.restart,
               {description = "reload awesome", group = "awesome"}),
-    awful.key({ modkey, "Shift"   }, "q", awesome.quit,
-              {description = "quit awesome", group = "awesome"}),
 
     awful.key({ modkey,           }, "l",     function () awful.tag.incmwfact( 0.05)          end,
               {description = "increase master width factor", group = "layout"}),
@@ -337,7 +340,7 @@ clientkeys = gears.table.join(
             c:raise()
         end,
         {description = "toggle fullscreen", group = "client"}),
-    awful.key({ modkey, "Shift"   }, "c",      function (c) c:kill()                         end,
+    awful.key({ modkey, "Shift"   }, "q",      function (c) c:kill()                         end,
               {description = "close", group = "client"}),
     awful.key({ modkey, "Control" }, "space",  awful.client.floating.toggle                     ,
               {description = "toggle floating", group = "client"}),
@@ -489,15 +492,26 @@ awful.rules.rules = {
         }
       }, properties = { floating = true }},
 
-    -- Add titlebars to normal clients and dialogs
-    { rule_any = {type = { "normal", "dialog" }
-      }, properties = { titlebars_enabled = true }
+    -- no titlebars to normal clients
+    { rule_any = {type = { "normal" }
+      }, properties = { titlebars_enabled = false }
     },
+    -- yes titlebars for dialogs
+   -- { rule_any = {type = "dialog" }
+    --}, properties = { titlebars_enabled = true},
+
+    -- set firefox tp always end up on tag named 2 on screen 1
+    { rule = { class = "firefox" },
+    properties = { tag = "2" } },
+    
+    { rule = { class = "Logseq" },
+     properties = { tag = "4" } },
+}
 
     -- Set Firefox to always map on the tag named "2" on screen 1.
     -- { rule = { class = "Firefox" },
     --   properties = { screen = 1, tag = "2" } },
-}
+
 -- }}}
 
 -- {{{ Signals

@@ -33,6 +33,7 @@
     # pkgs.hello
     cowsay
     htop
+    pokemonsay
     rofi
     fortune
     kitty

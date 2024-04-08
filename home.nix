@@ -68,6 +68,10 @@
     #   org.gradle.console=verbose
     #   org.gradle.daemon.idletimeout=3600000
     # '';
+    ".config/rofi" = {
+       source = ./programs/rofi;
+       recursive = true;
+       };
     ".config/awesome" = {
 	source = ./programs/awesome;
 	recursive = true;

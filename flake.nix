@@ -16,7 +16,15 @@
       nixosConfigurations = {
         anomalocarisNix = lib.nixosSystem {
           inherit system;
-          modules = [ ./configuration.nix ];
+
+          modules = [ 
+               ./configuration.nix
+               home-manager.nixosModules.home-manager
+               {
+                  home-manager.useGlobalPkgs = true;
+                  home-manager.useUserPackages = true;
+               }
+                 ];
         };
       };
       homeConfigurations = {

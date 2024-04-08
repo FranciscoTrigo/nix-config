@@ -15,6 +15,8 @@
       ./hardware-configuration.nix
     ];
 
+
+
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -73,6 +75,15 @@
     xkbVariant = "";
   };
 
+ services = { 
+   syncthing = {
+     enable = true;
+     user = "yamifrankc";
+     dataDir = "/home/yamifrankc";
+     configDir = "/home/yamifrankc/.config/syncthing";
+};
+};
+
   # Enable CUPS to print documents.
   services.printing.enable = true;
 
@@ -119,6 +130,8 @@
    tmux
    git
    zsh
+   discord
+   vscode.fhs
    home-manager
   ];
 

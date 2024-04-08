@@ -129,6 +129,14 @@
    neofetch
    tmux
    git
+   bat
+   git
+   emacs
+   ripgrep
+   coreutils
+   fd
+   clang
+   python3
    zsh
    discord
    vscode.fhs

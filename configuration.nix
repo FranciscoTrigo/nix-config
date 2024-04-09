@@ -131,6 +131,7 @@
    git
    bat
    git
+   chromium
    emacs
    eza
    ripgrep
@@ -141,12 +142,14 @@
    graphviz
    shellcheck
    logseq
+   hugo
    #obsidian
    dwarf-fortress
    clang
    python3
    zsh
    nixfmt
+   pokete
    discord
    vscode.fhs
    home-manager

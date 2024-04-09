@@ -68,10 +68,7 @@
     #   org.gradle.console=verbose
     #   org.gradle.daemon.idletimeout=3600000
     # '';
-    ".config/doom" = {
-      source = ./programs/doom;
-      recursive = true;
-       };
+
     ".config/rofi" = {
        source = ./programs/rofi;
        recursive = true;

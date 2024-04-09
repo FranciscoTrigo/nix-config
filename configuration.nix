@@ -132,19 +132,28 @@
    bat
    git
    emacs
+   eza
    ripgrep
    coreutils
    fd
+   xclip
+   scrot
+   graphviz
+   shellcheck
+   logseq
+   #obsidian
+   dwarf-fortress
    clang
    python3
    zsh
+   nixfmt
    discord
    vscode.fhs
    home-manager
   ];
 
   fonts.packages = with pkgs; [
-   # iosevka,
+   iosevka
    (nerdfonts.override { fonts = [ "FiraCode" "DroidSansMono" "Iosevka" ]; })
   ];
   nix.settings.experimental-features = [ "nix-command" "flakes" ];

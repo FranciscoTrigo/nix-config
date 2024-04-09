@@ -241,9 +241,15 @@ globalkeys = gears.table.join(
     -- Rofi as a launcher
     awful.key({ modkey }, "d",
      function()
-        awful.spawn.with_shell("rofi -matching fuzzy -show combi")
+        awful.spawn.with_shell("~/.config/rofi/scripts/launcher_t3")
      end,
       {description = "rofi launcher", group = "launcher"}),
+
+     awful.key({ modkey }, "z",
+       function()
+         awful.spawn.with_shell("bash ~/code/scripts/rofiBlezz.sh")
+       end,
+         {description = "ROfi Blezz", group = "blezz launcher"}),
 
     awful.key({ modkey,           }, "s",      hotkeys_popup.show_help,
               {description="show help", group="awesome"}),

@@ -9,7 +9,7 @@ alias wifisetup='nmtui'
 alias tree="tree -C"
 alias calculator="bc"
 alias ls="eza"
-
+alias pokesay="pokemonsay"
 # starship prompt
 eval "$(starship init zsh)"
 

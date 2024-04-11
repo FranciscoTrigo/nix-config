@@ -130,7 +130,7 @@
    tmux
    git
    bat
-   git
+   prusa-slicer
    chromium
    emacs
    eza

@@ -1,0 +1,8 @@
+#+title: Readme
+* This my NixOS config.
+
+I am new to Nix, I am learning.
+
++ This is a bullet point
++ Second bullet point
++ I am testing org mode too

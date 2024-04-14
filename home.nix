@@ -68,7 +68,15 @@
     #   org.gradle.console=verbose
     #   org.gradle.daemon.idletimeout=3600000
     # '';
-
+    ".config/zellij" = {
+      source = ./programs/zellij;
+      recursive = true;
+      };
+    ".i3blocks.conf".source = ./programs/i3block/i3block.conf;
+    ".config/i3" = {
+       source = ./programs/i3;
+       recursive = true;
+       };
     ".config/rofi" = {
        source = ./programs/rofi;
        recursive = true;

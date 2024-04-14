@@ -54,12 +54,15 @@
 
   # Enable the XFCE Desktop Environment.
 #  services.xserver.displayManager.lightdm.enable = true;
- # services.xserver.desktopManager.xfce.enable = true;
-
+  services.xserver.desktopManager.xfce = {
+     enable = true;
+     noDesktop = true;
+     enableXfwm = false;
+  };
 
   # enable awesomewm
   services.xserver.displayManager.sddm.enable = true;
-  services.xserver.displayManager.defaultSession = "none+awesome";
+
 
   services.xserver.windowManager.awesome = {
     enable = true;
@@ -68,6 +71,17 @@
 	luadbi-mysql
 	];
 	};	
+
+  services.xserver.windowManager.i3 = {
+  package = pkgs.i3-gaps;
+  enable = true;
+  extraPackages = with pkgs; [
+    i3status
+    i3lock
+    i3blocks
+    polybar
+  ];
+  };
 
   # Configure keymap in X11
   services.xserver = {
@@ -129,6 +143,9 @@
    neofetch
    tmux
    git
+   zellij
+   feh
+   sqlite
    bat
    prusa-slicer
    chromium

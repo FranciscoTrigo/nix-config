@@ -143,6 +143,7 @@
    neofetch
    tmux
    git
+   libnotify
    zellij
    feh
    sqlite
@@ -174,7 +175,7 @@
 
   fonts.packages = with pkgs; [
    iosevka
-   (nerdfonts.override { fonts = [ "FiraCode" "DroidSansMono" "Iosevka" ]; })
+   (nerdfonts.override { fonts = [ "FiraCode" "DroidSansMono" "Iosevka" "CascadiaCode"]; })
   ];
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
   # Some programs need SUID wrappers, can be configured further or are

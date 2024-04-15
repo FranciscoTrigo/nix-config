@@ -47,7 +47,7 @@ set $xgray5 #4E4E4E
 set $hard_black #121212
 
 # Colors                border        background  text          indicator child_border
-client.focused          $bright_black $xgray3     $yellow       $yellow   $bright_black
+client.focused          $yellow $xgray3     $yellow       $yellow   $bright_black
 client.focused_inactive $xgray3       $xgray3     $bright_black $xgray3   $xgray3
 client.unfocused        $xgray1       $xgray1     $bright_black $xgray1   $xgray1
 client.urgent           $red          $xgray1     $red          $red      $red
@@ -77,6 +77,12 @@ bar {
 ## -------------
 
 
+## Gaps
+gaps inner 14
+gaps outer -2
+smart_gaps on
+smart_borders on
+
 set $mod Mod4
 set $terminal kitty
 
@@ -88,6 +94,10 @@ exec --no-startup-id feh --bg-center wallpaper/wave.png
 bindsym $mod+z exec --no-startup-id "bash ~/code/scripts/rofiBlezz.sh"
 bindsym $mod+d exec --no-startup-id bash ~/.config/rofi/scripts/launcher_t3
 
+## volume keys
+bindsym XF86AudioRaiseVolume exec "amixer sset Master 5%+"
+bindsym XF86AudioLowerVolume exec "amixer sset Master 5%-"
+bindsym XF86AudioMute exec "amixer sset Master toggle"
 
 ## DOnt focus new windows
 no_focus [all]
@@ -128,11 +138,11 @@ exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
 exec --no-startup-id nm-applet
 
 # Use pactl to adjust volume in PulseAudio.
-set $refresh_i3status killall -SIGUSR1 i3status
-bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10% && $refresh_i3status
-bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10% && $refresh_i3status
-bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
-bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
+#set $refresh_i3status killall -SIGUSR1 i3status
+#bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10% && $refresh_i3status
+#bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10% && $refresh_i3status
+#bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
+#bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod

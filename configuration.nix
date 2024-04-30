@@ -143,6 +143,8 @@
    neofetch
    tmux
    git
+   flameshot
+   clipit
    libnotify
    zellij
    feh

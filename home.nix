@@ -6,13 +6,34 @@
   home.username = "yamifrankc";
   home.homeDirectory = "/home/yamifrankc";
 
-  programs.zsh = {
-   enable = true;
+programs.zsh = {
+  enable = true;
+  enableCompletion = true;
+ # autosuggestion.enable = true;
+  syntaxHighlighting.enable = true;
+
   shellAliases = {
-  ll = "ls -l";
- # .. = "cd ..";
-   };
+    ll = "ls -l";
+    wifisetup = "nmtui";
+    tree = "tree -C";
+    calculator = "bc";
+    ls = "eza";
+    pokesay = "pokemonsay"; 
   };
+  oh-my-zsh = {
+   enable = true;
+   plugins = ["git" "z" "tmux" "zsh-interactive-cd" "z" ];
+   theme = "robbyrussell";
+  };
+  history.size = 10000;
+  history.path = "${config.xdg.dataHome}/zsh/history";
+};
+
+programs.starship = { 
+  enable = true;
+
+};
+
 
 
 
@@ -36,9 +57,11 @@
     pokemonsay
     rofi
     fortune
+    thefuck
     kitty
     bash
     tree
+    fzf
     starship
 
     # # It is sometimes useful to fine-tune packages, for example, by applying
@@ -91,7 +114,7 @@
 	};
     ".config/starship.toml".source = ./programs/starship/starship.toml;
     ".vimrc".source = ./programs/vim/vimrc;
-    ".zshrc".source = ./programs/zsh/zshrc;
+    #".zshrc".source = ./programs/zsh/zshrc;
     ".tmux.conf".source = ./programs/tmux/tmux.conf;
     ".tmux" = {
 	source = ./programs/tmux/tmux;

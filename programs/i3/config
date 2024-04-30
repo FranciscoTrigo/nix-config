@@ -47,7 +47,7 @@ set $xgray5 #4E4E4E
 set $hard_black #121212
 
 # Colors                border        background  text          indicator child_border
-client.focused          $yellow $xgray3     $yellow       $yellow   $bright_black
+client.focused          $yellow $xgray3     $yellow       $yellow   $yellow
 client.focused_inactive $xgray3       $xgray3     $bright_black $xgray3   $xgray3
 client.unfocused        $xgray1       $xgray1     $bright_black $xgray1   $xgray1
 client.urgent           $red          $xgray1     $red          $red      $red
@@ -89,10 +89,17 @@ set $terminal kitty
 ## Auto start some stuf
 # set wallpaper for now
 exec --no-startup-id feh --bg-center wallpaper/wave.png
+# screenshots
+exec --no-startup-id flameshot
+# clipboard manager
+#exec --no-startup-id clipit
 
 ## My binds
 bindsym $mod+z exec --no-startup-id "bash ~/code/scripts/rofiBlezz.sh"
 bindsym $mod+d exec --no-startup-id bash ~/.config/rofi/scripts/launcher_t3
+
+# screenshot
+bindsym $mod++Shift+f exec --no-startup-id "flameshot gui"
 
 ## volume keys
 bindsym XF86AudioRaiseVolume exec "amixer sset Master 5%+"
@@ -103,7 +110,7 @@ bindsym XF86AudioMute exec "amixer sset Master toggle"
 no_focus [all]
 
 ## Configure border style
-default_border pixel 3
+default_border pixel 5
 default_floating_border normal
 
 ## Hide borders
@@ -160,8 +167,8 @@ bindsym $mod+Shift+q kill
 # change focus
 bindsym $mod+j focus down
 bindsym $mod+k focus up
-bindsym $mod+l focus left
-bindsym $mod+h focus right
+bindsym $mod+l focus right
+bindsym $mod+h focus left
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+Left focus left
@@ -172,8 +179,8 @@ bindsym $mod+Right focus right
 # move focused window
 bindsym $mod+Shift+j move down
 bindsym $mod+Shift+k move up
-bindsym $mod+Shift+l move left
-bindsym $mod+Shift+h move right
+bindsym $mod+Shift+l move right
+bindsym $mod+Shift+h move left
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+Shift+Left move left
@@ -251,6 +258,9 @@ assign [class="firefox"] $ws2
 assign [class="discord"] $ws4
 assign [class="obsidian"] $w3
 
+for_window [class="firefox"] border pixel 3
+
+
 # reload the configuration file
 bindsym $mod+Shift+c reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
@@ -284,7 +294,4 @@ mode "resize" {
 }
 
 bindsym $mod+r mode "resize"
-
-# Start i3bar to display a workspace bar (plus the system information i3status
-# finds out, if available)
 

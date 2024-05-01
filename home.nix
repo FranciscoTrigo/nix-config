@@ -9,7 +9,7 @@
 programs.zsh = {
   enable = true;
   enableCompletion = true;
- # autosuggestion.enable = true;
+  enableAutosuggestions = true;
   syntaxHighlighting.enable = true;
 
   shellAliases = {
@@ -21,10 +21,15 @@ programs.zsh = {
     pokesay = "pokemonsay"; 
   };
   oh-my-zsh = {
-   enable = true;
-   plugins = ["git" "z" "tmux" "zsh-interactive-cd" "z" ];
-   theme = "robbyrussell";
+    enable = true;
+    plugins = [ "git" "fzf" "z" "web-search" "tmux" ];
   };
+  #zplug = {
+   #enable = true;
+   #plugins = [
+     # { name = "zsh-users/zsh-autosuggestions"; } # Simple plugin installation
+    #];
+  #};
   history.size = 10000;
   history.path = "${config.xdg.dataHome}/zsh/history";
 };
@@ -56,10 +61,12 @@ programs.starship = {
     htop
     pokemonsay
     rofi
+    zsh-autocomplete
     fortune
     thefuck
     kitty
     bash
+    zsh-you-should-use
     tree
     fzf
     starship

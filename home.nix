@@ -8,11 +8,10 @@
 
 programs.zsh = {
   enable = true;
-  enableCompletion = true;
+    enableCompletion = true;
   enableAutosuggestions = true;
   syntaxHighlighting.enable = true;
-
-  shellAliases = {
+  shellAliases = {  
     ll = "ls -l";
     wifisetup = "nmtui";
     tree = "tree -C";
@@ -20,24 +19,16 @@ programs.zsh = {
     ls = "eza";
     pokesay = "pokemonsay"; 
   };
-  oh-my-zsh = {
-    enable = true;
-    plugins = [ "git" "fzf" "z" "web-search" "tmux" ];
-  };
-  #zplug = {
-   #enable = true;
-   #plugins = [
-     # { name = "zsh-users/zsh-autosuggestions"; } # Simple plugin installation
-    #];
-  #};
-  history.size = 10000;
-  history.path = "${config.xdg.dataHome}/zsh/history";
+#  antidote = {  
+ #   enable = true;
+  #  plugins = [ "rupa/z"];
+ # };
 };
 
-programs.starship = { 
-  enable = true;
+#programs.starship = { 
+ # enable = true;
 
-};
+
 
 
 
@@ -61,6 +52,7 @@ programs.starship = {
     htop
     pokemonsay
     rofi
+    figurine
     zsh-autocomplete
     fortune
     thefuck
@@ -121,7 +113,7 @@ programs.starship = {
 	};
     ".config/starship.toml".source = ./programs/starship/starship.toml;
     ".vimrc".source = ./programs/vim/vimrc;
-    #".zshrc".source = ./programs/zsh/zshrc;
+    ".zshrc".source = ./programs/zsh/zshrc;
     ".tmux.conf".source = ./programs/tmux/tmux.conf;
     ".tmux" = {
 	source = ./programs/tmux/tmux;

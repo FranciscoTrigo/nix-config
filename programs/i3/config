@@ -218,7 +218,7 @@ bindsym $mod+a focus parent
 # We use variables to avoid repeating the names in multiple places.
 set $ws1 1:term
 set $ws2 2:www
-set $ws3 3:emacs
+set $ws3 3:obsi
 set $ws4 "4"
 set $ws5 "5"
 set $ws6 "6"
@@ -256,7 +256,7 @@ bindsym $mod+Shift+0 move container to workspace number $ws10
 ## Rules for app windows
 assign [class="firefox"] $ws2
 assign [class="discord"] $ws4
-assign [class="obsidian"] $w3
+assign [class="obsidian"] $ws3
 
 for_window [class="firefox"] border pixel 3
 

@@ -1,15 +1,21 @@
+
+source ~/.antidote/antidote.zsh
+antidote load
+
+
 # Use powerline
 USE_POWERLINE="true"
-# Source manjaro-zsh-configuration
-if [[ -e /usr/share/zsh/manjaro-zsh-config ]]; then
-  source /usr/share/zsh/manjaro-zsh-config
-fi
 
+#aliases
+alias ll="eza -l"
 alias wifisetup='nmtui'
 alias tree="tree -C"
 alias calculator="bc"
 alias ls="eza"
 alias pokesay="pokemonsay"
+alias byebye="sudo shutdown -h now"
+
+
 # starship prompt
 eval "$(starship init zsh)"
 
@@ -18,3 +24,7 @@ PERL5LIB="/home/yamifrankc/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PER
 PERL_LOCAL_LIB_ROOT="/home/yamifrankc/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"; export PERL_LOCAL_LIB_ROOT;
 PERL_MB_OPT="--install_base \"/home/yamifrankc/perl5\""; export PERL_MB_OPT;
 PERL_MM_OPT="INSTALL_BASE=/home/yamifrankc/perl5"; export PERL_MM_OPT;
+
+
+source ~/.antidote/antidote.zsh
+antidote load

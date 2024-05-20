@@ -56,6 +56,7 @@ programs.zsh = {
     zsh-autocomplete
     fortune
     todofi-sh
+    todo-txt-cli
     thefuck
     kitty
     bash

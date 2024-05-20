@@ -55,6 +55,7 @@ programs.zsh = {
     figurine
     zsh-autocomplete
     fortune
+    todofi-sh
     thefuck
     kitty
     bash

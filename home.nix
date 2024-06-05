@@ -50,6 +50,7 @@ programs.zsh = {
     # pkgs.hello
     cowsay
     htop
+    godot_4
     pokemonsay
     rofi
     figurine
@@ -92,6 +93,11 @@ programs.zsh = {
     #   org.gradle.console=verbose
     #   org.gradle.daemon.idletimeout=3600000
     # '';
+    ".config/todofish.conf".source = ./programs/todofish/todofish.conf;
+    ".config/todo" = {
+     source = ./programs/todo;
+     recursive = true;
+     };
     ".config/zellij" = {
       source = ./programs/zellij;
       recursive = true;

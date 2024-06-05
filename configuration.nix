@@ -98,6 +98,9 @@
 };
 };
 
+ # enable QMK stuff
+ hardware.keyboard.qmk.enable = true;
+
   # Enable CUPS to print documents.
   services.printing.enable = true;
 
@@ -142,9 +145,12 @@
   environment.systemPackages = with pkgs; [
    vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
    wget
+   via 
    neofetch
    tmux
    git
+   lua
+   love
    flameshot
    clipit
    libnotify
@@ -195,7 +201,7 @@
 
   # Enable the OpenSSH daemon.
   # services.openssh.enable = true;
-
+  services.udev.packages = [ pkgs.via ];
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
   # networking.firewall.allowedUDPPorts = [ ... ];

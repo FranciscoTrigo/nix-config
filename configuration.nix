@@ -98,6 +98,11 @@
 };
 };
 
+ # Enable bluetooth stuff
+ hardware.bluetooth.enable = true;
+ hardware.bluetooth.powerOnBoot = false; # Set true to enable on boot
+ services.blueman.enable = true;
+
  # enable QMK stuff
  hardware.keyboard.qmk.enable = true;
 
@@ -162,6 +167,9 @@
    chromium
    emacs
    eza
+   awscli2
+   mongodb
+   nodejs_21
    obsidian
    ripgrep
    coreutils

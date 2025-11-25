@@ -29,7 +29,8 @@ programs.zsh = {
  # enable = true;
 
 
-
+  # bluetooth?
+  services.mpris-proxy.enable = true;
 
 
 
@@ -50,9 +51,11 @@ programs.zsh = {
     # pkgs.hello
     cowsay
     htop
+    lazygit
     godot_4
     pokemonsay
     rofi
+    xsel
     figurine
     zsh-autocomplete
     fortune

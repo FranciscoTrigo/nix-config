@@ -2,12 +2,17 @@
   description = "My first flake!";
 
   inputs = {
-    nixpkgs.url = "nixpkgs/nixos-23.11";
-    home-manager.url = "github:nix-community/home-manager/release-23.11";
-    home-manager.inputs.nixpkgs.follows = "nixpkgs";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.05";
+    nixos-hardware.url = "github:NixOS/nixos-hardware";
+    home-manager = {
+      url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+   # nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.05";
   };
 
-  outputs = { self, nixpkgs, home-manager, ... }:
+  outputs = { self, nixpkgs, nixos-hardware, home-manager, ... }:
     let
       lib = nixpkgs.lib;
       system = "x86_64-linux";
@@ -17,8 +22,10 @@
         anomalocarisNix = lib.nixosSystem {
           inherit system;
 
-          modules = [ 
+          modules = [
+               nixos-hardware.nixosModules.framework-16-7040-amd
                ./configuration.nix
+               # pia.nixosModules."x86_64-linux".default
                home-manager.nixosModules.home-manager
                {
                   home-manager.useGlobalPkgs = true;

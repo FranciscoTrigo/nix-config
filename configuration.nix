@@ -15,7 +15,11 @@
       ./hardware-configuration.nix
     ];
 
-
+  programs.nh = {
+    enable = true;
+    clean.enable = true;
+    clean.extraArgs = "--keep-since 4d --keep 5";
+    };
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
@@ -29,7 +33,13 @@
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
   # Enable networking
-  networking.networkmanager.enable = true;
+  networking.networkmanager = {
+    enable = true;
+    plugins = with pkgs; [
+       networkmanager-openvpn
+       networkmanager-vpnc
+    ];
+};
 
   # Set your time zone.
   time.timeZone = "America/Chicago";
@@ -51,6 +61,10 @@
 
   # Enable the X11 windowing system.
   services.xserver.enable = true;
+  services.xserver.dpi = 144;
+
+  # Enable this for firmware update on framework 16
+  services.fwupd.enable = true;
 
   # Enable the XFCE Desktop Environment.
 #  services.xserver.displayManager.lightdm.enable = true;
@@ -60,10 +74,19 @@
      enableXfwm = false;
   };
 
-  # enable awesomewm
+  # enable Qtile
+  services.xserver.windowManager.qtile = {
+    enable = true;
+    extraPackages = python3Packages: with python3Packages; [
+       qtile-extras
+    ];
+};
+
+  #enable fingerprint reader
+  services.fprintd.enable = true;
   services.xserver.displayManager.sddm.enable = true;
 
-
+  #enable awesome WM
   services.xserver.windowManager.awesome = {
     enable = true;
     luaModules = with pkgs.luaPackages; [
@@ -73,7 +96,8 @@
 	};	
 
   services.xserver.windowManager.i3 = {
-  package = pkgs.i3-gaps;
+  #package = pkgs.i3-gaps;
+  package = pkgs.i3;
   enable = true;
   extraPackages = with pkgs; [
     i3status
@@ -110,8 +134,8 @@
   services.printing.enable = true;
 
   # Enable sound with pipewire.
-  sound.enable = true;
-  hardware.pulseaudio.enable = false;
+  #sound.enable = true;
+  #hardware.pulseaudio.enable = false;
 
   security.rtkit.enable = true;
   services.pipewire = {
@@ -152,6 +176,8 @@
    vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
    wget
    via
+   cacert
+   openssl
    #niri
    neofetch
    tmux
@@ -165,13 +191,15 @@
    feh
    sqlite
    bat
+   fish
+   bsdgames
    prusa-slicer
    chromium
    emacs
    eza
    awscli2
-   mongodb
-   nodejs_21
+   #mongodb
+   #nodejs_21
    obsidian
    ripgrep
    coreutils
@@ -182,6 +210,10 @@
    shellcheck
    logseq
    hugo
+   openvpn
+   networkmanager-vpnc
+   networkmanager-openvpn
+   pinentry-gnome3
    #obsidian
    dwarf-fortress
    clang
@@ -189,23 +221,36 @@
    zsh
    nixfmt
    pokete
+   pinentry-curses
    discord
    vscode.fhs
    home-manager
   ];
 
-  fonts.packages = with pkgs; [
-   iosevka
-   (nerdfonts.override { fonts = [ "FiraCode" "DroidSansMono" "Iosevka" "CascadiaCode"]; })
-  ];
+fonts.packages = with pkgs; [
+  # ... other fonts ...
+  iosevka
+  nerd-fonts.fira-code
+  nerd-fonts.droid-sans-mono
+  nerd-fonts.iosevka
+];
+
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
-  # programs.mtr.enable = true;
-  # programs.gnupg.agent = {
-  #   enable = true;
-  #   enableSSHSupport = true;
-  # };
+  programs.mtr.enable = true;
+  programs.gnupg.agent = {
+     enable = true;
+     pinentryPackage = with pkgs; pinentry-curses;
+     enableSSHSupport = true;
+   };
+
+
+  # Alternatively, you can use the `authUserPassFile` attribute if you are using
+  # a Nix secrets manager. Here's an example using sops-nix.
+  #
+  # The secret you provide to `authUserPassFile` should be a multiline string with
+  # a single username on the first line a single password on the second line.
 
   # List services that you want to enable:
 

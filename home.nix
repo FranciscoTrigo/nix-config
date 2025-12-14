@@ -6,24 +6,27 @@
   home.username = "yamifrankc";
   home.homeDirectory = "/home/yamifrankc";
 
-programs.zsh = {
-  enable = true;
-    enableCompletion = true;
-  enableAutosuggestions = true;
-  syntaxHighlighting.enable = true;
-  shellAliases = {  
-    ll = "ls -l";
-    wifisetup = "nmtui";
-    tree = "tree -C";
-    calculator = "bc";
-    ls = "eza";
-    pokesay = "pokemonsay"; 
-  };
+
+
+
+#programs.zsh = {
+ # enable = true;
+  #  enableCompletion = true;
+  #enableAutosuggestions = true;
+  #syntaxHighlighting.enable = true;
+  #shellAliases = {  
+   # ll = "ls -l";
+   # wifisetup = "nmtui";
+   # tree = "tree -C";
+   # calculator = "bc";
+   # ls = "eza";
+   # pokesay = "pokemonsay"; 
+  #};
 #  antidote = {  
  #   enable = true;
   #  plugins = [ "rupa/z"];
  # };
-};
+
 
 #programs.starship = { 
  # enable = true;
@@ -51,6 +54,7 @@ programs.zsh = {
     # pkgs.hello
     cowsay
     htop
+    lxappearance
     lazygit
     godot_4
     pokemonsay
@@ -61,7 +65,7 @@ programs.zsh = {
     fortune
     todofi-sh
     todo-txt-cli
-    thefuck
+    #thefuck
     kitty
     bash
     zsh-you-should-use

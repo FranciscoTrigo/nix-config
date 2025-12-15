@@ -88,7 +88,7 @@ set $terminal kitty
 
 ## Auto start some stuf
 # set wallpaper for now
-exec --no-startup-id feh --bg-center wallpaper/wave.png
+exec --no-startup-id feh --bg-center code/nix-config/wallpaper/wallpaper_sunshine.png
 # screenshots
 exec --no-startup-id flameshot
 # clipboard manager

@@ -1,0 +1,33 @@
+position = "Top"
+
+[modules]
+left = ["Workspaces"]
+center = ["WindowTitle"]
+right = [ "SystemInfo", ["Tray"], [ "Clock", "Privacy", "Settings" ] ]
+
+
+[clock]
+format = "%H:%M [%A %F]"
+
+
+[appearance]
+style = "Solid"
+scale_factor = 1.5
+workspace_colors = [ "#7aa2f7", "#9ece6a" ]
+special_workspace_colors = [ "#7aa2f7", "#9ece6a" ]
+success_color = "#9ece6a"
+
+[appearance.background_color]
+base = "#1c1b19"
+text = "#918175"
+
+[appearance.text_color]
+base = "#918175"
+
+[appearance.workspace_color]
+base = "#1c1b19"
+strong = "#1c1b19"
+
+
+#backgroung #1c1b19
+#foreground #918175

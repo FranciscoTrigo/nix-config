@@ -56,7 +56,7 @@ client.background       $black
 
 bar {
 
-  status_command i3blocks
+  status_command waybar
   position top
   colors {
     background $black
@@ -88,7 +88,7 @@ set $terminal kitty
 
 ## Auto start some stuf
 # set wallpaper for now
-exec --no-startup-id feh --bg-center ~/code/nix-config/wallpaper/wallpaper_sunshine.png
+#exec --no-startup-id feh --bg-center ~/code/nix-config/wallpaper/wallpaper_sunshine.png
 # screenshots
 exec --no-startup-id flameshot
 # clipboard manager
@@ -157,7 +157,7 @@ floating_modifier $mod
 
 # move tiling windows via drag & drop by left-clicking into the title bar,
 # or left-clicking anywhere into the window while holding the floating modifier.
-tiling_drag modifier titlebar
+# tiling_drag modifier titlebar
 
 # start a terminal
 bindsym $mod+Return exec $terminal

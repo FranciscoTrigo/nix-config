@@ -110,6 +110,10 @@
       recursive = true;
       };
     ".i3blocks.conf".source = ./programs/i3block/i3block.conf;
+    ".config/sway" = {
+       source = ./programs/sway;
+       recursive = true;
+       };
     ".config/i3" = {
        source = ./programs/i3;
        recursive = true;

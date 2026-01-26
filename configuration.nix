@@ -15,6 +15,17 @@
       ./hardware-configuration.nix
     ];
 
+
+  programs.hyprland = {
+   enable = true;
+   xwayland.enable = true;
+   };
+
+  programs.sway = {
+   enable = true;
+   wrapperFeatures.gtk = true;
+  };
+
   programs.nh = {
     enable = true;
     clean.enable = true;
@@ -41,6 +52,8 @@
     ];
 };
 
+
+
   # Set your time zone.
   time.timeZone = "America/Chicago";
 
@@ -58,6 +71,28 @@
     LC_TELEPHONE = "en_US.UTF-8";
     LC_TIME = "en_US.UTF-8";
   };
+
+  #services.libinput.enable = true;
+  services.libinput = {
+    enable = true;
+    
+    mouse = {
+      accelProfile = "flat";  # or "adaptive"
+      accelSpeed = "0";
+    };
+    
+    touchpad = {
+      tapping = true;
+      naturalScrolling = false;
+      disableWhileTyping = true;
+      clickMethod = "clickfinger";  # two-finger = right-click, three-finger = middle-click
+    };
+  };
+
+# samba shares
+  services.gvfs = {
+   enable = true;
+};
 
   # Enable the X11 windowing system.
   services.xserver.enable = true;
@@ -82,9 +117,12 @@
     ];
 };
 
+
+  
   #enable fingerprint reader
   services.fprintd.enable = true;
   services.xserver.displayManager.sddm.enable = true;
+  security.pam.services.sddm.enableGnomeKeyring = true;
 
   #enable awesome WM
   services.xserver.windowManager.awesome = {
@@ -158,7 +196,7 @@
   users.users.yamifrankc = {
     isNormalUser = true;
     description = "yamifrankc";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" "wheel" "input" "video" "audio" ];
     packages = with pkgs; [
       firefox
     #  thunderbird
@@ -170,12 +208,24 @@
 
   nixpkgs.config.permittedInsecurePackages = [ "electron-25.9.0" ];
 
+
+ ### Packages
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
    vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
    wget
    via
+   libinput
+   wofi
+   waybar
+   dunst
+   hyprpaper
+   grim # screenshot in wayland
+   slurp # screenshot in wailand
+   wl-clipboard #
+   mako #notification system developed by a person
+   lxqt.lxqt-policykit
    cacert
    openssl
    #niri
@@ -189,6 +239,12 @@
    libnotify
    zellij
    feh
+   pokemon-cursor
+   ashell
+   psmisc
+   gsimplecal
+   waybar
+   swww
    sqlite
    bat
    fish
@@ -198,12 +254,17 @@
    emacs
    eza
    awscli2
+   mplayer
    #mongodb
    #nodejs_21
    obsidian
    ripgrep
+   amfora
+   lagrange
    coreutils
    fd
+   cifs-utils
+   pcmanfm
    xclip
    scrot
    graphviz
@@ -223,6 +284,8 @@
    pokete
    pinentry-curses
    discord
+   espanso
+   swaybg
    vscode.fhs
    home-manager
   ];
@@ -244,6 +307,9 @@ fonts.packages = with pkgs; [
      pinentryPackage = with pkgs; pinentry-curses;
      enableSSHSupport = true;
    };
+
+ services.gnome.gnome-keyring.enable = true;
+ security.pam.services.hyprland.enableGnomeKeyring = true;
 
 
   # Alternatively, you can use the `authUserPassFile` attribute if you are using
